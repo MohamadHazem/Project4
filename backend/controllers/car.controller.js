@@ -29,10 +29,10 @@ router.post("/", authenticateAdmin, async (req, res) => {
 });
 
 //Edit Cars
-router.put("/", authenticateAdmin, async (req, res) => {
+router.put("/", async (req, res) => {
   try {
     const car = req.body.data;
-    await Car.findByIdAndUpdate(req.body.id, { $set:car });
+    await Car.findByIdAndUpdate(req.body._id, { $set:car });
     res.status(200).json({ message: responseList.CREATED_SUCCESS });
   } catch (e) {
     console.log(e)
@@ -41,10 +41,10 @@ router.put("/", authenticateAdmin, async (req, res) => {
 });
 
 //Delete Cars
-router.delete("/", authenticateAdmin, async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
     console.log(req.body);
-    await Car.findByIdAndUpdate(req.body.id, { $set:{quantity:0} });
+    await Car.findByIdAndRemove(req.body._id);
     res.status(200).json({ message: responseList.DELETED_SUCCESS });
   } catch (e) {
     console.log(e)
